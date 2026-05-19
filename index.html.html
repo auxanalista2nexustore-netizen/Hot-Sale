@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Ejecutivo — Hot Sale 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c12;
+    --surface: #111420;
+    --surface2: #181c2a;
+    --border: rgba(255,255,255,0.07);
+    --accent: #f5a623;
+    --accent2: #e8474c;
+    --accent3: #4ade80;
+    --accent4: #60a5fa;
+    --text: #e8eaf0;
+    --muted: #6b7280;
+    --bajo: #60a5fa;
+    --medio: #f5a623;
+    --alto: #4ade80;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, #0d1117 0%, #131929 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .logo-badge {
+    background: linear-gradient(135deg, var(--accent), #e07b12);
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    color: #000;
+    letter-spacing: -1px;
+  }
+  .logo-text {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: -0.3px;
+  }
+  .logo-text span { color: var(--accent); }
+  .header-meta {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .live-dot {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .live-dot::before {
+    content: '';
+    width: 7px; height: 7px;
+    background: var(--accent3);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
+
+  /* NAV TABS */
+  .nav-tabs {
+    display: flex;
+    gap: 2px;
+    padding: 16px 32px 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .tab-btn {
+    padding: 10px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    border-radius: 6px 6px 0 0;
+    position: relative;
+    bottom: -1px;
+  }
+  .tab-btn:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    background: rgba(245,166,35,0.06);
+  }
+
+  /* MAIN LAYOUT */
+  .main { padding: 28px 32px; max-width: 1600px; margin: 0 auto; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* FILTERS */
+  .filters-bar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .filter-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  select {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    min-width: 160px;
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+  }
+  select:focus { border-color: var(--accent); }
+  .reset-btn {
+    align-self: flex-end;
+    padding: 8px 16px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .reset-btn:hover { background: rgba(255,255,255,0.1); color: var(--text); }
+
+  /* RESULTS COUNT */
+  .results-count {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--muted);
+    align-self: flex-end;
+    padding-bottom: 8px;
+  }
+  .results-count strong { color: var(--accent); }
+
+  /* KPI GRID */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .kpi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .kpi-card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.14); }
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 14px 14px 0 0;
+  }
+  .kpi-card.bajo::before { background: var(--bajo); }
+  .kpi-card.medio::before { background: var(--medio); }
+  .kpi-card.alto::before { background: var(--alto); }
+  .kpi-card.neutral::before { background: linear-gradient(90deg, var(--bajo), var(--medio), var(--alto)); }
+  .kpi-card.dark::before { background: var(--muted); }
+  .kpi-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .kpi-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .kpi-card.bajo .kpi-value { color: var(--bajo); }
+  .kpi-card.medio .kpi-value { color: var(--medio); }
+  .kpi-card.alto .kpi-value { color: var(--alto); }
+  .kpi-sub {
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .kpi-badge {
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .kpi-badge.up { background: rgba(74,222,128,0.12); color: var(--alto); }
+  .kpi-badge.down { background: rgba(232,71,76,0.12); color: var(--accent2); }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .section-badge {
+    font-size: 10px;
+    padding: 3px 8px;
+    background: rgba(245,166,35,0.12);
+    color: var(--accent);
+    border-radius: 4px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  /* TWO COLUMN LAYOUT */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px; }
+  @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* CHART CONTAINER */
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px;
+  }
+
+  /* BAR CHART */
+  .bar-chart { display: flex; flex-direction: column; gap: 10px; }
+  .bar-row { display: flex; flex-direction: column; gap: 4px; }
+  .bar-label-row { display: flex; justify-content: space-between; align-items: center; }
+  .bar-label { font-size: 12px; color: var(--text); font-weight: 500; }
+  .bar-value { font-size: 12px; color: var(--muted); }
+  .bar-track { height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; }
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+  }
+  .bar-multi {
+    display: flex;
+    height: 100%;
+  }
+  .bar-seg { height: 100%; }
+
+  /* TABLE */
+  .table-wrapper { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    background: var(--surface2);
+    padding: 12px 14px;
+    text-align: left;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--muted);
+    font-weight: 600;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+  }
+  tbody tr {
+    border-top: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  tbody tr:hover { background: rgba(255,255,255,0.03); }
+  tbody td { padding: 11px 14px; font-size: 12.5px; }
+  .td-platform {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'Syne', sans-serif;
+  }
+  .td-platform.ML { background: rgba(96,165,250,0.15); color: #60a5fa; }
+  .td-platform.AMZ { background: rgba(245,166,35,0.15); color: #f5a623; }
+  .td-platform.WM { background: rgba(74,222,128,0.15); color: #4ade80; }
+  .td-platform.LIV { background: rgba(232,121,249,0.15); color: #e879f9; }
+  .td-hist {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 500;
+  }
+  .td-hist.continua { background: rgba(74,222,128,0.1); color: #4ade80; }
+  .td-hist.nueva { background: rgba(96,165,250,0.1); color: #60a5fa; }
+  .td-hist.migracion { background: rgba(232,71,76,0.1); color: #e8474c; }
+  .td-hist.otro { background: rgba(255,255,255,0.06); color: var(--muted); }
+  .td-money { font-family: 'Syne', sans-serif; font-size: 12px; }
+  .td-pct { font-size: 11px; }
+  .td-pct.pos { color: var(--alto); }
+  .td-pct.neg { color: var(--accent2); }
+  .td-pct.warn { color: var(--accent); }
+
+  /* MINI BARS IN TABLE */
+  .scenario-bar { display: flex; gap: 4px; align-items: center; }
+  .s-bar { height: 5px; border-radius: 3px; }
+
+  /* PLATFORM OVERVIEW (Resumen tab) */
+  .plataform-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .plat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .plat-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .plat-label { font-size: 11px; color: var(--muted); margin-bottom: 14px; }
+  .plat-scenarios { display: flex; flex-direction: column; gap: 8px; }
+  .plat-row { display: flex; align-items: center; justify-content: space-between; }
+  .plat-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .plat-scenario-name { font-size: 11px; color: var(--muted); flex: 1; margin-left: 8px; }
+  .plat-val { font-size: 13px; font-weight: 600; }
+  .plat-growth { font-size: 10px; margin-left: 6px; }
+  .plat-bg-text {
+    position: absolute;
+    bottom: -10px; right: 10px;
+    font-family: 'Syne', sans-serif;
+    font-size: 64px;
+    font-weight: 800;
+    opacity: 0.04;
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  /* TIENDA BREAKDOWN — FIXED VERSION */
+  .tienda-rows { display: flex; flex-direction: column; gap: 16px; }
+  .tienda-row { display: flex; flex-direction: column; gap: 6px; }
+  .tienda-header { display: flex; justify-content: space-between; align-items: center; }
+  .tienda-name { font-weight: 600; font-size: 13px; }
+  .tienda-vals { display: flex; gap: 16px; font-size: 12px; }
+  .tienda-scenario { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .tienda-scenario .label { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; }
+  .tienda-scenario .val { font-weight: 600; font-size: 12px; }
+  /* Three independent bars stacked */
+  .tribar-group { display: flex; flex-direction: column; gap: 3px; }
+  .tribar-track { height: 5px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+  .tribar-fill { height: 100%; border-radius: 3px; transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+
+  /* TOTALS BIG ROW */
+  .totals-row {
+    background: linear-gradient(135deg, rgba(245,166,35,0.08), rgba(245,166,35,0.03));
+    border: 1px solid rgba(245,166,35,0.2);
+    border-radius: 14px;
+    padding: 22px 28px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .totals-item { display: flex; flex-direction: column; gap: 4px; }
+  .totals-lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); }
+  .totals-val { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; }
+  .totals-sep { width: 1px; height: 40px; background: var(--border); }
+
+  /* PAGINATION */
+  .table-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0 0;
+  }
+  .page-info { font-size: 12px; color: var(--muted); }
+  .page-btns { display: flex; gap: 6px; }
+  .page-btn {
+    padding: 6px 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .page-btn:hover:not(:disabled) { background: rgba(255,255,255,0.08); color: var(--text); }
+  .page-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .page-btn.current { background: rgba(245,166,35,0.12); color: var(--accent); border-color: rgba(245,166,35,0.3); }
+
+  /* EMPTY STATE */
+  .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); }
+  .empty-state .icon { font-size: 40px; margin-bottom: 12px; opacity: 0.4; }
+  .empty-state p { font-size: 14px; }
+
+  /* PROYECCIÓN POR CATEGORÍA TAB */
+  .proy-cat-header {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .proy-kpi {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .proy-kpi::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    border-radius: 12px 12px 0 0;
+  }
+  .proy-kpi.k-bajo::before { background: var(--bajo); }
+  .proy-kpi.k-medio::before { background: var(--medio); }
+  .proy-kpi.k-alto::before { background: var(--alto); }
+  .proy-kpi.k-total::before { background: linear-gradient(90deg, var(--bajo), var(--medio), var(--alto)); }
+  .proy-kpi-lbl { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 600; margin-bottom: 8px; }
+  .proy-kpi-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .proy-kpi.k-bajo .proy-kpi-val { color: var(--bajo); }
+  .proy-kpi.k-medio .proy-kpi-val { color: var(--medio); }
+  .proy-kpi.k-alto .proy-kpi-val { color: var(--alto); }
+  .proy-kpi.k-total .proy-kpi-val { color: var(--text); }
+  .proy-kpi-sub { font-size: 11px; color: var(--muted); }
+
+  /* Proyección table */
+  .proy-table-wrapper { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); margin-bottom: 20px; }
+  .proy-table { width: 100%; border-collapse: collapse; }
+  .proy-table thead th {
+    background: var(--surface2);
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--muted);
+    font-weight: 600;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+  }
+  .proy-table thead th.th-bajo { color: var(--bajo); }
+  .proy-table thead th.th-medio { color: var(--medio); }
+  .proy-table thead th.th-alto { color: var(--alto); }
+  .tasa-badge {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+  .tasa-pos { background: rgba(167,139,250,0.15); color: #a78bfa; border: 1px solid rgba(167,139,250,0.3); }
+  .tasa-neg { background: rgba(248,113,113,0.15); color: #f87171; border: 1px solid rgba(248,113,113,0.3); }
+  .tasa-cap { background: rgba(245,166,35,0.18); color: var(--medio); border: 1px solid rgba(245,166,35,0.3); }
+  .tasa-cap::after { content: " ⚑"; font-size: 10px; }
+  .proy-table tbody tr {
+    border-top: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .proy-table tbody tr:hover { background: rgba(255,255,255,0.03); }
+  .proy-table tbody tr.total-row {
+    background: rgba(245,166,35,0.06);
+    border-top: 1px solid rgba(245,166,35,0.2);
+  }
+  .proy-table tbody tr.total-row td { font-weight: 700; }
+  .proy-table tbody td { padding: 10px 14px; font-size: 12px; }
+  .proy-method-badge {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .method-yoy { background: rgba(74,222,128,0.1); color: var(--alto); }
+  .method-growth { background: rgba(96,165,250,0.1); color: var(--bajo); }
+  .method-nueva { background: rgba(232,121,249,0.1); color: #e879f9; }
+  .method-desc { background: rgba(232,71,76,0.1); color: var(--accent2); }
+  .alerta-badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 600;
+    background: rgba(232,71,76,0.1);
+    color: var(--accent2);
+    max-width: 200px;
+    white-space: normal;
+    line-height: 1.3;
+  }
+  .proy-bar-trio { display: flex; gap: 3px; align-items: flex-end; height: 24px; }
+  .proy-bar-seg {
+    border-radius: 2px 2px 0 0;
+    min-width: 8px;
+    transition: height 0.4s ease;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 11px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-badge">HS</div>
+    <div class="logo-text">Hot Sale <span>2026</span> — Dashboard Ejecutivo</div>
+  </div>
+  <div class="header-meta">
+    <div class="live-dot">Datos actualizados</div>
+  </div>
+</header>
+
+<!-- TABS: Resumen Ejecutivo FIRST, then Empresa Detalle, then Proyección por Categoría -->
+<div class="nav-tabs">
+  <button class="tab-btn active" onclick="switchTab('resumen')">Resumen Ejecutivo</button>
+  <button class="tab-btn" onclick="switchTab('detalle')">Empresa · Detalle</button>
+  <button class="tab-btn" onclick="switchTab('proyeccion')">Proyección por Categoría</button>
+</div>
+
+<div class="main">
+
+<!-- ========== TAB: RESUMEN EJECUTIVO ========== -->
+<div id="tab-resumen" class="tab-content active">
+
+  <div class="totals-row">
+    <div class="totals-item">
+      <div class="totals-lbl">Facturación Base 2025</div>
+      <div class="totals-val" style="color:var(--text)">$178.0M</div>
+    </div>
+    <div class="totals-sep"></div>
+    <div class="totals-item">
+      <div class="totals-lbl">Escenario Bajo</div>
+      <div class="totals-val" style="color:var(--bajo)">$253.6M</div>
+    </div>
+    <div class="totals-item" style="margin-left:-28px">
+      <div class="totals-lbl">&nbsp;</div>
+      <div class="totals-val" style="font-size:14px; color:var(--bajo); opacity:0.7">+42.5%</div>
+    </div>
+    <div class="totals-sep"></div>
+    <div class="totals-item">
+      <div class="totals-lbl">Escenario Medio</div>
+      <div class="totals-val" style="color:var(--medio)">$263.9M</div>
+    </div>
+    <div class="totals-item" style="margin-left:-28px">
+      <div class="totals-lbl">&nbsp;</div>
+      <div class="totals-val" style="font-size:14px; color:var(--medio); opacity:0.7">+48.3%</div>
+    </div>
+    <div class="totals-sep"></div>
+    <div class="totals-item">
+      <div class="totals-lbl">Escenario Alto</div>
+      <div class="totals-val" style="color:var(--alto)">$296.0M</div>
+    </div>
+    <div class="totals-item" style="margin-left:-28px">
+      <div class="totals-lbl">&nbsp;</div>
+      <div class="totals-val" style="font-size:14px; color:var(--alto); opacity:0.7">+66.3%</div>
+    </div>
+  </div>
+
+  <div class="section-header" style="margin-bottom:16px">
+    <div class="section-title">Por Plataforma</div>
+    <div class="section-line"></div>
+    <div class="section-badge">4 CANALES</div>
+  </div>
+  <div class="plataform-grid" id="plat-grid"></div>
+
+  <div class="two-col">
+    <div class="chart-card">
+      <div class="section-header" style="margin-bottom:18px">
+        <div class="section-title">Distribución por Tienda</div>
+        <div class="section-line"></div>
+      </div>
+      <div class="tienda-rows" id="tienda-rows"></div>
+    </div>
+    <div class="chart-card">
+      <div class="section-header" style="margin-bottom:18px">
+        <div class="section-title">Top Categorías · Proyección Media</div>
+        <div class="section-line"></div>
+      </div>
+      <div class="bar-chart" id="cat-chart"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ========== TAB: EMPRESA DETALLE ========== -->
+<div id="tab-detalle" class="tab-content">
+
+  <div class="filters-bar">
+    <div class="filter-group">
+      <div class="filter-label">Plataforma</div>
+      <select id="f-platform" onchange="applyFilters()">
+        <option value="">Todas las plataformas</option>
+        <option value="ML">ML — Mercado Libre</option>
+        <option value="AMZ">AMZ — Amazon</option>
+        <option value="WM">WM — Walmart</option>
+        <option value="LIV">LIV — Liverpool</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <div class="filter-label">Tienda</div>
+      <select id="f-store" onchange="applyFilters()">
+        <option value="">Todas las tiendas</option>
+        <option value="Select">Select</option>
+        <option value="Nexu">Nexu</option>
+        <option value="Tlab">Tlab</option>
+        <option value="Medical">Medical</option>
+        <option value="Fontastic">Fontastic</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <div class="filter-label">Categoría</div>
+      <select id="f-category" onchange="applyFilters()">
+        <option value="">Todas las categorías</option>
+      </select>
+    </div>
+    <button class="reset-btn" onclick="resetFilters()">↺ Limpiar filtros</button>
+    <div class="results-count">Mostrando <strong id="count-display">77</strong> registros</div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-grid" id="kpi-container"></div>
+
+  <!-- TABLE -->
+  <div class="section-header">
+    <div class="section-title">Proyecciones por Empresa / Plataforma</div>
+    <div class="section-line"></div>
+    <div class="section-badge">DETALLE</div>
+  </div>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Plataforma</th>
+          <th>Tienda</th>
+          <th>Categoría</th>
+          <th>Facturación 2024</th>
+          <th>Facturación 2025</th>
+          <th>Part. %</th>
+          <th>Histórico</th>
+          <th style="color:var(--bajo)">⬇ Proy. Baja</th>
+          <th style="color:var(--bajo)">Var%</th>
+          <th style="color:var(--medio)">◆ Proy. Media</th>
+          <th style="color:var(--medio)">Var%</th>
+          <th style="color:var(--alto)">⬆ Proy. Alta</th>
+          <th style="color:var(--alto)">Var%</th>
+          <th>Escenarios</th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+  </div>
+  <div class="table-footer">
+    <div class="page-info" id="page-info"></div>
+    <div class="page-btns" id="page-btns"></div>
+  </div>
+
+</div>
+
+<!-- ========== TAB: PROYECCIÓN POR CATEGORÍA ========== -->
+<div id="tab-proyeccion" class="tab-content">
+
+  <div class="proy-cat-header" id="proy-kpis"></div>
+
+  <div class="section-header" style="margin-bottom:16px">
+    <div class="section-title">Proyección 2026 por Categoría — Tres Escenarios</div>
+    <div class="section-line"></div>
+    <div class="section-badge">CATEGORÍAS</div>
+  </div>
+
+  <div class="proy-table-wrapper">
+    <table class="proy-table">
+      <thead>
+        <tr>
+          <th>Categoría</th>
+          <th>Método</th>
+          <th>Fact. 2024</th>
+          <th>Fact. 2025</th>
+          <th>Crec. 2024→2025</th>
+          <th style="color:#a78bfa;white-space:nowrap">Tasa Proyectada</th>
+          <th class="th-bajo">⬇ Proy. Baja</th>
+          <th class="th-bajo">Var $</th>
+          <th class="th-bajo">Var %</th>
+          <th class="th-medio">◆ Proy. Media</th>
+          <th class="th-medio">Var $</th>
+          <th class="th-medio">Var %</th>
+          <th class="th-alto">⬆ Proy. Alta</th>
+          <th class="th-alto">Var $</th>
+          <th class="th-alto">Var %</th>
+          <th>Visual</th>
+          <th>Alerta</th>
+        </tr>
+      </thead>
+      <tbody id="proy-tbody"></tbody>
+    </table>
+  </div>
+
+</div>
+
+</div><!-- end main -->
+
+<footer>Dashboard Ejecutivo Hot Sale 2026 — Datos extraídos del reporte de proyecciones. Generado automáticamente.</footer>
+
+<script>
+// =================== DATA ===================
+const DATA = {"detail":[{"platform":"ML","store":"Select","category":"ADIR","fact2024":3501119.7,"fact2025":3770831.17,"participacion":0.718410355750522,"historico":"Continua en ambos años","bajo_proj":4713892.794653874,"bajo_var_pct":0.2500938339951915,"medio_proj":4842492.1071066735,"medio_var_pct":0.28419753863089925,"alto_proj":5521241.717706674,"alto_var_pct":0.4641975386308992},{"platform":"ML","store":"Tlab","category":"ADIR","fact2024":0,"fact2025":1478022.97,"participacion":0.281589644249478,"historico":"Nueva en 2025","bajo_proj":1847667.4013002599,"bajo_var_pct":0.2500938339951915,"medio_proj":1898073.460113931,"medio_var_pct":0.284197538630899,"alto_proj":2164117.594713931,"alto_var_pct":0.46419753863089896},{"platform":"ML","store":"Select","category":"ANIMALES Y MASCOTAS","fact2024":133561.0,"fact2025":349152.0,"participacion":0.999266531405609,"historico":"Continua en ambos años","bajo_proj":564229.6319999999,"bajo_var_pct":0.6159999999999997,"medio_proj":593558.3999999997,"medio_var_pct":0.6999999999999991,"alto_proj":656405.7599999997,"alto_var_pct":0.879999999999999},{"platform":"ML","store":"Tlab","category":"ANIMALES Y MASCOTAS","fact2024":0,"fact2025":256.28,"participacion":0.0007334685943904,"historico":"Nueva en 2025","bajo_proj":414.14847999994726,"bajo_var_pct":0.6159999999999997,"medio_proj":435.67599999994445,"medio_var_pct":0.6999999999999991,"alto_proj":481.80639999993855,"alto_var_pct":0.879999999999999},{"platform":"ML","store":"Select","category":"BEBES","fact2024":635096.6,"fact2025":1366380.2,"participacion":0.976407609435413,"historico":"Continua en ambos años","bajo_proj":1846476.8570601693,"bajo_var_pct":0.3513638861717767,"medio_proj":1911944.5830229195,"medio_var_pct":0.3992771433770188,"alto_proj":2157893.01902292,"alto_var_pct":0.5792771433770192},{"platform":"ML","store":"Tlab","category":"BEBES","fact2024":1388.3,"fact2025":33015.08,"participacion":0.0235923905645873,"historico":"Continua en ambos años","bajo_proj":44615.38681107209,"bajo_var_pct":0.3513638861717763,"medio_proj":46197.24683076373,"medio_var_pct":0.39927714337701836,"alto_proj":52139.961230763736,"alto_var_pct":0.5792771433770185},{"platform":"ML","store":"Select","category":"BELLEZA Y CUIDADO PERSONAL","fact2024":185091.87,"fact2025":426734.0,"participacion":0.146246681763706,"historico":"Continua en ambos años","bajo_proj":689602.1440000017,"bajo_var_pct":0.6160000000000041,"medio_proj":725447.8000000018,"medio_var_pct":0.7000000000000042,"alto_proj":802259.9200000019,"alto_var_pct":0.8800000000000046},{"platform":"ML","store":"Tlab","category":"BELLEZA Y CUIDADO PERSONAL","fact2024":0,"fact2025":2491171.52,"participacion":0.853753318236294,"historico":"Nueva en 2025","bajo_proj":4025733.176319998,"bajo_var_pct":0.6159999999999992,"medio_proj":4234991.583999998,"medio_var_pct":0.6999999999999991,"alto_proj":4683402.4575999975,"alto_var_pct":0.879999999999999},{"platform":"ML","store":"Select","category":"BH CRISTALERIA","fact2024":0,"fact2025":421476.0,"participacion":1.0,"historico":"Nueva en 2025","bajo_proj":532745.664,"bajo_var_pct":0.264,"medio_proj":547918.8,"medio_var_pct":0.30000000000000004,"alto_proj":623784.4800000001,"alto_var_pct":0.4800000000000002},{"platform":"ML","store":"Nexu","category":"CUIDADO Y BELLEZA PERSONAL","fact2024":0,"fact2025":189580.0,"participacion":1.0,"historico":"Nueva en 2025","bajo_proj":239629.12,"bajo_var_pct":0.264,"medio_proj":246454.0,"medio_var_pct":0.30000000000000004,"alto_proj":280578.4,"alto_var_pct":0.4800000000000002},{"platform":"ML","store":"Select","category":"DEPORTES Y FITNESS","fact2024":270123.63,"fact2025":4496733.8,"participacion":0.963291481949535,"historico":"Continua en ambos años","bajo_proj":5288158.948799998,"bajo_var_pct":0.1759999999999995,"medio_proj":5396080.559999997,"medio_var_pct":0.1999999999999993,"alto_proj":6205492.643999997,"alto_var_pct":0.3799999999999992},{"platform":"ML","store":"Tlab","category":"DEPORTES Y FITNESS","fact2024":4937.2,"fact2025":171358.76,"participacion":0.0367085180504647,"historico":"Continua en ambos años","bajo_proj":201517.90175999992,"bajo_var_pct":0.1759999999999995,"medio_proj":205630.5119999999,"medio_var_pct":0.1999999999999993,"alto_proj":236475.08879999988,"alto_var_pct":0.3799999999999992},{"platform":"ML","store":"Select","category":"ELECTRODOMESTICOS","fact2024":32615.0,"fact2025":7268557.97,"participacion":0.982480350340196,"historico":"Continua en ambos años","bajo_proj":8547824.172719995,"bajo_var_pct":0.17599999999999927,"medio_proj":8722269.563999996,"medio_var_pct":0.1999999999999995,"alto_proj":10030609.998599995,"alto_var_pct":0.37999999999999945},{"platform":"ML","store":"Tlab","category":"ELECTRODOMESTICOS","fact2024":0,"fact2025":129613.37,"participacion":0.0175196496598036,"historico":"Nueva en 2025","bajo_proj":152425.32311999967,"bajo_var_pct":0.1759999999999975,"medio_proj":155536.04399999965,"medio_var_pct":0.1999999999999973,"alto_proj":178866.45059999963,"alto_var_pct":0.37999999999999723},{"platform":"ML","store":"Fontastic","category":"FONTASTIC","fact2024":0,"fact2025":1849894.26,"participacion":1.0,"historico":"Nueva en 2025","bajo_proj":2338266.34464,"bajo_var_pct":0.2639999999999998,"medio_proj":2404862.538,"medio_var_pct":0.30000000000000004,"alto_proj":2737843.5048,"alto_var_pct":0.4800000000000002},{"platform":"ML","store":"Select","category":"HERRAMIENTAS","fact2024":877875.0,"fact2025":1858327.2,"participacion":0.713863392954914,"historico":"Continua en ambos años","bajo_proj":3003056.755199999,"bajo_var_pct":0.6159999999999994,"medio_proj":3159156.2399999993,"medio_var_pct":0.6999999999999997,"alto_proj":3493655.1359999985,"alto_var_pct":0.8799999999999992},{"platform":"ML","store":"Tlab","category":"HERRAMIENTAS","fact2024":7262.78,"fact2025":744870.02,"participacion":0.286136607045086,"historico":"Continua en ambos años","bajo_proj":1203709.9523200002,"bajo_var_pct":0.6160000000000001,"medio_proj":1266279.0340000002,"medio_var_pct":0.7000000000000002,"alto_proj":1400355.6376000002,"alto_var_pct":0.8800000000000003},{"platform":"ML","store":"Select","category":"HOGAR MUEBLES Y JARDIN","fact2024":11495297.26,"fact2025":24569862.08,"participacion":0.939465246122902,"historico":"Continua en ambos años","bajo_proj":39072729.303619064,"bajo_var_pct":0.5902705996638247,"medio_proj":41050393.01593076,"medio_var_pct":0.6707620450725282,"alto_proj":45472968.19033076,"alto_var_pct":0.8507620450725282},{"platform":"ML","store":"Tlab","category":"HOGAR MUEBLES Y JARDIN","fact2024":371170.9,"fact2025":1583167.19,"participacion":0.0605347538770983,"historico":"Continua en ambos años","bajo_proj":2517664.2366093877,"bajo_var_pct":0.5902705996638218,"medio_proj":2645095.6520561227,"medio_var_pct":0.6707620450725249,"alto_proj":2930065.746256122,"alto_var_pct":0.8507620450725246},{"platform":"ML","store":"Nexu","category":"HV COSMETICA","fact2024":0,"fact2025":4857.55,"participacion":1.0,"historico":"Nueva en 2025","bajo_proj":6139.943200000001,"bajo_var_pct":0.264,"medio_proj":6314.8150000000005,"medio_var_pct":0.30000000000000004,"alto_proj":7189.174,"alto_var_pct":0.48},{"platform":"ML","store":"Nexu","category":"HV ELECTRONICA","fact2024":0,"fact2025":22856486.44,"participacion":0.930505484106976,"historico":"Nueva en 2025","bajo_proj":28644596.71114044,"bajo_var_pct":0.2532370968886519,"medio_proj":29433884.475386865,"medio_var_pct":0.28776942828255914,"alto_proj":33548052.03458686,"alto_var_pct":0.46776942828255885},{"platform":"ML","store":"Select","category":"HV ELECTRONICA","fact2024":23200660.19,"fact2025":1692070.65,"participacion":0.0688855228669807,"historico":"Continua en ambos años","bajo_proj":2120565.7091364926,"bajo_var_pct":0.25323709688865104,"medio_proj":2178996.8535641967,"medio_var_pct":0.28776942828255825,"alto_proj":2483569.5705641964,"alto_var_pct":0.4677694282825582},{"platform":"ML","store":"Tlab","category":"HV ELECTRONICA","fact2024":178.2,"fact2025":14959.01,"participacion":0.0006089930260432,"historico":"Continua en ambos años","bajo_proj":18747.18626472814,"bajo_var_pct":0.2532370968886404,"medio_proj":19263.75575537291,"medio_var_pct":0.28776942828254737,"alto_proj":21956.377555372885,"alto_var_pct":0.46776942828254575},{"platform":"ML","store":"Select","category":"HV ELECTRONICA AUDIO Y VIDEO","fact2024":0,"fact2025":113428.99,"participacion":1.0,"historico":"Nueva en 2025","bajo_proj":143374.24336000002,"bajo_var_pct":0.26400000000000023,"medio_proj":147457.687,"medio_var_pct":0.30000000000000004,"alto_proj":167874.9052,"alto_var_pct":0.48},{"platform":"ML","store":"Nexu","category":"HV PERFUMERÍA","fact2024":0,"fact2025":26485572.63,"participacion":1.0,"historico":"Nueva en 2025","bajo_proj":42800685.37008,"bajo_var_pct":0.6160000000000001,"medio_proj":45025473.471,"medio_var_pct":0.7000000000000002,"alto_proj":49792876.5444,"alto_var_pct":0.8800000000000001},{"platform":"ML","store":"Select","category":"HV PERFUMERÍA","fact2024":3674711.79,"fact2025":0,"participacion":0.0,"historico":"Migración: activa solo en 2024","bajo_proj":0,"bajo_var_pct":0,"medio_proj":0,"medio_var_pct":0,"alto_proj":0,"alto_var_pct":0},{"platform":"ML","store":"Select","category":"JUGUETES","fact2024":18698.05,"fact2025":549778.3,"participacion":0.60110635049426,"historico":"Continua en ambos años","bajo_proj":646539.2808000005,"bajo_var_pct":0.17600000000000082,"medio_proj":659733.9600000005,"medio_var_pct":0.20000000000000084,"alto_proj":758694.0540000006,"alto_var_pct":0.380000000000001},{"platform":"ML","store":"Tlab","category":"JUGUETES","fact2024":129.0,"fact2025":364832.4,"participacion":0.398893649505741,"historico":"Continua en ambos años","bajo_proj":429042.9024000005,"bajo_var_pct":0.17600000000000127,"medio_proj":437798.8800000005,"medio_var_pct":0.2000000000000013,"alto_proj":503468.7120000005,"alto_var_pct":0.38000000000000145},{"platform":"ML","store":"Medical","category":"MEDICAL STORE","fact2024":6389415.25,"fact2025":9027571.0,"participacion":0.992062716710564,"historico":"Continua en ambos años","bajo_proj":10970918.96917048,"bajo_var_pct":0.21526809029477345,"medio_proj":11235920.964966452,"medio_var_pct":0.24462282988042428,"alto_proj":12860883.744966453,"alto_var_pct":0.42462282988042443},{"platform":"ML","store":"Select","category":"MEDICAL STORE","fact2024":198721.0,"fact2025":28929.0,"participacion":0.0031790813200715,"historico":"Continua en ambos años","bajo_proj":35156.49058413663,"bajo_var_pct":0.21526809029474325,"medio_proj":36005.6938456099,"medio_var_pct":0.2446228298803934,"alto_proj":41212.91384560977,"alto_var_pct":0.4246228298803889},{"platform":"ML","store":"Tlab","category":"MEDICAL STORE","fact2024":56458.54,"fact2025":43298.68,"participacion":0.0047582019693648,"historico":"Continua en ambos años","bajo_proj":52619.50415588352,"bajo_var_pct":0.2152680902947508,"medio_proj":53890.52563168592,"medio_var_pct":0.24462282988040096,"alto_proj":61684.28803168578,"alto_var_pct":0.42462282988039757},{"platform":"ML","store":"Select","category":"PAPELERIA Y OFICINA","fact2024":1332764.02,"fact2025":2696083.68,"participacion":0.798346058345536,"historico":"Continua en ambos años","bajo_proj":4356871.226880002,"bajo_var_pct":0.6160000000000005,"medio_proj":4583342.256000001,"medio_var_pct":0.7000000000000002,"alto_proj":5068637.318400001,"alto_var_pct":0.8800000000000003},{"platform":"ML","store":"Tlab","category":"PAPELERIA Y OFICINA","fact2024":24292.9,"fact2025":681002.8,"participacion":0.201653941654464,"historico":"Continua en ambos años","bajo_proj":1100500.5247999988,"bajo_var_pct":0.6159999999999981,"medio_proj":1157704.7599999988,"medio_var_pct":0.6999999999999982,"alto_proj":1280285.2639999986,"alto_var_pct":0.8799999999999977},{"platform":"ML","store":"Select","category":"ROPA BOLSO Y CALZADOS","fact2024":296823.93,"fact2025":38916.0,"participacion":0.71420155547505,"historico":"Continua en ambos años","bajo_proj":32378.112000000012,"bajo_var_pct":-0.1679999999999997,"medio_proj":33078.60000000001,"medio_var_pct":-0.1499999999999997,"alto_proj":40083.48000000002,"alto_var_pct":0.03000000000000047},{"platform":"ML","store":"Tlab","category":"ROPA BOLSO Y CALZADOS","fact2024":6028.0,"fact2025":15572.82,"participacion":0.28579844452495,"historico":"Continua en ambos años","bajo_proj":12956.586239999988,"bajo_var_pct":-0.16800000000000082,"medio_proj":13236.896999999988,"medio_var_pct":-0.1500000000000008,"alto_proj":16040.004599999987,"alto_var_pct":0.02999999999999914},{"platform":"ML","store":"Select","category":"SALUD Y EQUIPAMIENTO MEDICO","fact2024":1871118.05,"fact2025":2174207.0,"participacion":0.981411542045075,"historico":"Continua en ambos años","bajo_proj":2338826.2868785937,"bajo_var_pct":0.07571463383136634,"medio_proj":2361274.3714529485,"medio_var_pct":0.08603935662655338,"alto_proj":2752631.6314529483,"alto_var_pct":0.2660393566265531},{"platform":"ML","store":"Tlab","category":"SALUD Y EQUIPAMIENTO MEDICO","fact2024":52310.98,"fact2025":41180.64,"participacion":0.0185884579549247,"historico":"Continua en ambos años","bajo_proj":44298.61707854119,"bajo_var_pct":0.07571463383136323,"medio_proj":44723.795771069555,"medio_var_pct":0.0860393566265496,"alto_proj":52136.310971069535,"alto_var_pct":0.2660393566265491},{"platform":"AMZ","store":"Nexu","category":"ADIR","fact2024":75402.0,"fact2025":578.0,"participacion":0.0265967237253819,"historico":"Continua en ambos años","bajo_proj":722.55423604922,"bajo_var_pct":0.25009383399519036,"medio_proj":742.2661773286591,"medio_var_pct":0.28419753863089814,"alto_proj":846.3061773286589,"alto_var_pct":0.46419753863089785},{"platform":"AMZ","store":"Select","category":"ADIR","fact2024":0,"fact2025":21154.0,"participacion":0.973403276274618,"historico":"Nueva en 2025","bajo_proj":26444.48496433428,"bajo_var_pct":0.2500938339951915,"medio_proj":27165.914732198038,"medio_var_pct":0.284197538630899,"alto_proj":30973.634732198036,"alto_var_pct":0.46419753863089896},{"platform":"AMZ","store":"Nexu","category":"ANIMALES Y MASCOTAS","fact2024":27985.0,"fact2025":0,"participacion":0.0,"historico":"Migración: activa solo en 2024","bajo_proj":0,"bajo_var_pct":0,"medio_proj":0,"medio_var_pct":0,"alto_proj":0,"alto_var_pct":0},{"platform":"AMZ","store":"Select","category":"ANIMALES Y MASCOTAS","fact2024":0,"fact2025":121530.16,"participacion":1.0,"historico":"Nueva en 2025","bajo_proj":196392.73856000003,"bajo_var_pct":0.6160000000000001,"medio_proj":206601.272,"medio_var_pct":0.7,"alto_proj":228476.7008,"alto_var_pct":0.8799999999999999},{"platform":"AMZ","store":"Nexu","category":"BEBES","fact2024":329900.38,"fact2025":1887.0,"participacion":0.0089821817219599,"historico":"Continua en ambos años","bajo_proj":2550.023653206136,"bajo_var_pct":0.35136388617177317,"medio_proj":2640.4359695524277,"medio_var_pct":0.39927714337701525,"alto_proj":2980.095969552427,"alto_var_pct":0.579277143377015},{"platform":"AMZ","store":"Select","category":"BEBES","fact2024":0,"fact2025":208195.59,"participacion":0.99101781827804,"historico":"Nueva en 2025","bajo_proj":281348.0015862257,"bajo_var_pct":0.35136388617177583,"medio_proj":291323.3304388929,"medio_var_pct":0.39927714337701814,"alto_proj":328798.5366388929,"alto_var_pct":0.5792771433770183},{"platform":"AMZ","store":"Nexu","category":"BELLEZA Y CUIDADO PERSONAL","fact2024":248719.75,"fact2025":428461.58,"participacion":0.799575479723458,"historico":"Continua en ambos años","bajo_proj":692393.9132800003,"bajo_var_pct":0.6160000000000008,"medio_proj":728384.6860000005,"medio_var_pct":0.7000000000000011,"alto_proj":805507.7704000004,"alto_var_pct":0.8800000000000008},{"platform":"AMZ","store":"Select","category":"BELLEZA Y CUIDADO PERSONAL","fact2024":0,"fact2025":107399.75,"participacion":0.200424520276542,"historico":"Nueva en 2025","bajo_proj":173557.99599999964,"bajo_var_pct":0.6159999999999966,"medio_proj":182579.57499999958,"medio_var_pct":0.699999999999996,"alto_proj":201911.52999999953,"alto_var_pct":0.8799999999999957},{"platform":"AMZ","store":"Nexu","category":"BH CRISTALERIA","fact2024":0,"fact2025":2024.0,"participacion":0.0059403193954774,"historico":"Nueva en 2025","bajo_proj":2558.335999999996,"bajo_var_pct":0.263999999999998,"medio_proj":2631.1999999999957,"medio_var_pct":0.2999999999999978,"alto_proj":2995.5199999999954,"alto_var_pct":0.47999999999999776},{"platform":"AMZ","store":"Select","category":"BH CRISTALERIA","fact2024":0,"fact2025":338698.42,"participacion":0.994059680604522,"historico":"Nueva en 2025","bajo_proj":428114.80287999974,"bajo_var_pct":0.26399999999999935,"medio_proj":440307.9459999997,"medio_var_pct":0.29999999999999916,"alto_proj":501273.66159999976,"alto_var_pct":0.4799999999999993},{"platform":"AMZ","store":"Nexu","category":"DEPORTES Y FITNESS","fact2024":61317.3,"fact2025":0,"participacion":0.0,"historico":"Migración: activa solo en 2024","bajo_proj":0,"bajo_var_pct":0,"medio_proj":0,"medio_var_pct":0,"alto_proj":0,"alto_var_pct":0},{"platform":"AMZ","store":"Select","category":"DEPORTES Y FITNESS","fact2024":0,"fact2025":895202.19,"participacion":1.0,"historico":"Nueva en 2025","bajo_proj":1052757.77544,"bajo_var_pct":0.17600000000000016,"medio_proj":1074242.6279999998,"medio_var_pct":0.19999999999999973,"alto_proj":1235379.0221999998,"alto_var_pct":0.3799999999999999},{"platform":"AMZ","store":"Nexu","category":"ELECTRODOMESTICOS","fact2024":75102.25,"fact2025":36194.0,"participacion":0.0340353366800442,"historico":"Continua en ambos años","bajo_proj":42564.14399999992,"bajo_var_pct":0.1759999999999977,"medio_proj":43432.799999999916,"medio_var_pct":0.19999999999999774,"alto_proj":49947.71999999991,"alto_var_pct":0.37999999999999745},{"platform":"AMZ","store":"Select","category":"ELECTRODOMESTICOS","fact2024":0,"fact2025":1027230.18,"participacion":0.965964663319956,"historico":"Nueva en 2025","bajo_proj":1208022.6916800004,"bajo_var_pct":0.17600000000000038,"medio_proj":1232676.2160000005,"medio_var_pct":0.2000000000000004,"alto_proj":1417577.6484000005,"alto_var_pct":0.38000000000000034},{"platform":"AMZ","store":"Fontastic","category":"FONTASTIC","fact2024":0,"fact2025":1806806.44,"participacion":1.0,"historico":"Nueva en 2025","bajo_proj":2283803.3401599997,"bajo_var_pct":0.2639999999999998,"medio_proj":2348848.372,"medio_var_pct":0.30000000000000004,"alto_proj":2674073.5312,"alto_var_pct":0.48},{"platform":"AMZ","store":"Nexu","category":"HERRAMIENTAS","fact2024":329470.17,"fact2025":0,"participacion":0.0,"historico":"Migración: activa solo en 2024","bajo_proj":0,"bajo_var_pct":0,"medio_proj":0,"medio_var_pct":0,"alto_proj":0,"alto_var_pct":0},{"platform":"AMZ","store":"Select","category":"HERRAMIENTAS","fact2024":0,"fact2025":734491.97,"participacion":1.0,"historico":"Nueva en 2025","bajo_proj":1186939.02352,"bajo_var_pct":0.6160000000000001,"medio_proj":1248636.349,"medio_var_pct":0.7,"alto_proj":1380844.9035999998,"alto_var_pct":0.8799999999999999},{"platform":"AMZ","store":"Nexu","category":"HOGAR MUEBLES Y JARDIN","fact2024":3096971.42,"fact2025":9935.0,"participacion":0.0028171608451675,"historico":"Continua en ambos años","bajo_proj":15799.338407659894,"bajo_var_pct":0.5902705996638042,"medio_proj":16599.02091779535,"medio_var_pct":0.6707620450725065,"alto_proj":18387.320917795325,"alto_var_pct":0.8507620450725037},{"platform":"AMZ","store":"Select","category":"HOGAR MUEBLES Y JARDIN","fact2024":0,"fact2025":3516665.2,"participacion":0.997182839154832,"historico":"Nueva en 2025","bajo_proj":5592449.276420899,"bajo_var_pct":0.5902705996638231,"medio_proj":5875510.741387385,"medio_var_pct":0.6707620450725262,"alto_proj":6508510.477387385,"alto_var_pct":0.8507620450725264},{"platform":"AMZ","store":"Nexu","category":"HV ELECTRONICA","fact2024":6651113.95,"fact2025":7524435.87,"participacion":0.91257818241686,"historico":"Continua en ambos años","bajo_proj":9429902.165443635,"bajo_var_pct":0.2532370968886515,"medio_proj":9689738.478458676,"medio_var_pct":0.2877694282825587,"alto_proj":11044136.935058676,"alto_var_pct":0.4677694282825584},{"platform":"AMZ","store":"Select","category":"HV ELECTRONICA","fact2024":0,"fact2025":720814.8,"participacion":0.0874218175831396,"historico":"Nueva en 2025","bajo_proj":903351.8473463738,"bajo_var_pct":0.25323709688865126,"medio_proj":928243.2628936068,"medio_var_pct":0.28776942828255847,"alto_proj":1057989.9268936065,"alto_var_pct":0.4677694282825582},{"platform":"AMZ","store":"Nexu","category":"HV PERFUMERÍA","fact2024":6839688.18,"fact2025":15574465.01,"participacion":1.0,"historico":"Continua en ambos años","bajo_proj":25168335.45616,"bajo_var_pct":0.6160000000000001,"medio_proj":26476590.517,"medio_var_pct":0.7000000000000002,"alto_proj":29279994.2188,"alto_var_pct":0.8800000000000001},{"platform":"AMZ","store":"Nexu","category":"JUGUETES","fact2024":6472.0,"fact2025":0,"participacion":0.0,"historico":"Migración: activa solo en 2024","bajo_proj":0,"bajo_var_pct":0,"medio_proj":0,"medio_var_pct":0,"alto_proj":0,"alto_var_pct":0},{"platform":"AMZ","store":"Select","category":"JUGUETES","fact2024":0,"fact2025":67081.82,"participacion":1.0,"historico":"Nueva en 2025","bajo_proj":78888.22032,"bajo_var_pct":0.1759999999999997,"medio_proj":80498.18400000001,"medio_var_pct":0.19999999999999996,"alto_proj":92572.91159999999,"alto_var_pct":0.37999999999999967},{"platform":"AMZ","store":"Select","category":"MEDICAL STORE","fact2024":1168660.15,"fact2025":1898957.15,"participacion":1.0,"historico":"Continua en ambos años","bajo_proj":2307742.029232105,"bajo_var_pct":0.215268090294773,"medio_proj":2363485.421854664,"medio_var_pct":0.2446228298804236,"alto_proj":2705297.708854664,"alto_var_pct":0.42462282988042377},{"platform":"AMZ","store":"Nexu","category":"PAPELERIA Y OFICINA","fact2024":585382.8,"fact2025":0,"participacion":0.0,"historico":"Migración: activa solo en 2024","bajo_proj":0,"bajo_var_pct":0,"medio_proj":0,"medio_var_pct":0,"alto_proj":0,"alto_var_pct":0},{"platform":"AMZ","store":"Select","category":"PAPELERIA Y OFICINA","fact2024":5949.0,"fact2025":855521.35,"participacion":1.0,"historico":"Continua en ambos años","bajo_proj":1382522.5016,"bajo_var_pct":0.6160000000000001,"medio_proj":1454386.295,"medio_var_pct":0.7,"alto_proj":1608380.1379999998,"alto_var_pct":0.8799999999999999},{"platform":"AMZ","store":"Nexu","category":"ROPA BOLSO Y CALZADOS","fact2024":56467.95,"fact2025":0,"participacion":0.0,"historico":"Migración: activa solo en 2024","bajo_proj":0,"bajo_var_pct":0,"medio_proj":0,"medio_var_pct":0,"alto_proj":0,"alto_var_pct":0},{"platform":"AMZ","store":"Select","category":"ROPA BOLSO Y CALZADOS","fact2024":0,"fact2025":15036.0,"participacion":1.0,"historico":"Nueva en 2025","bajo_proj":12509.952,"bajo_var_pct":-0.16800000000000004,"medio_proj":12780.599999999999,"medio_var_pct":-0.15000000000000013,"alto_proj":15487.08,"alto_var_pct":0.030000000000000027},{"platform":"AMZ","store":"Nexu","category":"SALUD Y EQUIPAMIENTO MEDICO","fact2024":16255.0,"fact2025":0,"participacion":0.0,"historico":"Migración: activa solo en 2024","bajo_proj":0,"bajo_var_pct":0,"medio_proj":0,"medio_var_pct":0,"alto_proj":0,"alto_var_pct":0},{"platform":"AMZ","store":"Select","category":"SALUD Y EQUIPAMIENTO MEDICO","fact2024":0,"fact2025":2445.0,"participacion":1.0,"historico":"Nueva en 2025","bajo_proj":2630.1222797176915,"bajo_var_pct":0.07571463383136678,"medio_proj":2655.3662269519227,"medio_var_pct":0.08603935662655315,"alto_proj":3095.4662269519226,"alto_var_pct":0.2660393566265533},{"platform":"WM","store":"Select","category":"ANIMALES Y MASCOTAS","fact2024":0,"fact2025":598.0,"participacion":1.0,"historico":"Nueva en 2025","bajo_proj":966.368,"bajo_var_pct":0.6160000000000001,"medio_proj":1016.6,"medio_var_pct":0.7,"alto_proj":1124.24,"alto_var_pct":0.8800000000000001},{"platform":"WM","store":"Select","category":"DEPORTES Y FITNESS","fact2024":0,"fact2025":2587.0,"participacion":1.0,"historico":"Nueva en 2025","bajo_proj":3042.3120000000004,"bajo_var_pct":0.17600000000000016,"medio_proj":3104.4,"medio_var_pct":0.19999999999999996,"alto_proj":3570.06,"alto_var_pct":0.3799999999999999},{"platform":"WM","store":"Select","category":"ELECTRODOMESTICOS","fact2024":0,"fact2025":1139072.0,"participacion":1.0,"historico":"Nueva en 2025","bajo_proj":1339548.672,"bajo_var_pct":0.17599999999999993,"medio_proj":1366886.4,"medio_var_pct":0.19999999999999996,"alto_proj":1571919.3599999999,"alto_var_pct":0.3799999999999999},{"platform":"WM","store":"Select","category":"HERRAMIENTAS","fact2024":0,"fact2025":634801.0,"participacion":1.0,"historico":"Nueva en 2025","bajo_proj":1025838.416,"bajo_var_pct":0.6159999999999999,"medio_proj":1079161.7,"medio_var_pct":0.7,"alto_proj":1193425.88,"alto_var_pct":0.8799999999999999},{"platform":"WM","store":"Select","category":"HOGAR MUEBLES Y JARDIN","fact2024":0,"fact2025":2011989.0,"participacion":1.0,"historico":"Nueva en 2025","bajo_proj":3199606.953547018,"bajo_var_pct":0.5902705996638242,"medio_proj":3361554.856303429,"medio_var_pct":0.6707620450725273,"alto_proj":3723712.8763034292,"alto_var_pct":0.8507620450725273},{"platform":"WM","store":"Select","category":"HV ELECTRONICA","fact2024":0,"fact2025":11360651.0,"participacion":1.0,"historico":"Nueva en 2025","bajo_proj":14237589.278005162,"bajo_var_pct":0.25323709688865215,"medio_proj":14629899.043187685,"medio_var_pct":0.28776942828255936,"alto_proj":16674816.223187683,"alto_var_pct":0.4677694282825591},{"platform":"WM","store":"Select","category":"HV PERFUMERÍA","fact2024":0,"fact2025":5559635.13,"participacion":1.0,"historico":"Nueva en 2025","bajo_proj":8984370.37008,"bajo_var_pct":0.6160000000000001,"medio_proj":9451379.721,"medio_var_pct":0.7000000000000002,"alto_proj":10452114.0444,"alto_var_pct":0.8799999999999999},{"platform":"WM","store":"Select","category":"PAPELERIA Y OFICINA","fact2024":0,"fact2025":103431.0,"participacion":1.0,"historico":"Nueva en 2025","bajo_proj":167144.49599999998,"bajo_var_pct":0.6159999999999999,"medio_proj":175832.69999999998,"medio_var_pct":0.6999999999999997,"alto_proj":194450.27999999997,"alto_var_pct":0.8799999999999997},{"platform":"LIV","store":"Fontastic","category":"FONTASTIC","fact2024":0,"fact2025":1279396.45,"participacion":1.0,"historico":"Nueva en 2025","bajo_proj":1617157.1127999998,"bajo_var_pct":0.2639999999999998,"medio_proj":1663215.3849999998,"medio_var_pct":0.2999999999999998,"alto_proj":1893506.7459999998,"alto_var_pct":0.48}],"plataformas":{"ML":{"rev2025":120027751.46,"bajo":170584576.93,"medio":177480918.58,"alto":199085913.84},"AMZ":{"rev2025":35915210.48,"bajo":52472300.74,"medio":54730700.88,"alto":61195438.77},"WM":{"rev2025":20812764.13,"bajo":28958106.87,"medio":30068835.42,"alto":33815132.96},"LIV":{"rev2025":1279396.45,"bajo":1617157.11,"medio":1663215.39,"alto":1893506.75}},"tiendas":{"Fontastic":{"rev2025":4936097.15,"bajo":6239226.8,"medio":6416926.3,"alto":7305423.78},"Medical":{"rev2025":9027571.0,"bajo":10970918.97,"medio":11235920.96,"alto":12860883.74},"Nexu":{"rev2025":73114477.08,"bajo":107045877.08,"medio":111672886.17,"alto":124833492.04},"Select":{"rev2025":83164655.75,"bajo":117724205.95,"medio":122439079.01,"alto":137408717.05},"Tlab":{"rev2025":7792321.54,"bajo":11651912.85,"medio":12178857.82,"alto":13581475.7}},"totales":{"fact2025":178035122.52,"bajo":253632141.64,"medio":263943670.26,"alto":295989992.32}};
+
+// Proyección por categoría data from xlsx
+const PROY_CAT = [
+  {cat:"HV PERFUMERÍA", metodo:"Año contra Año", f2024:10514399.97, f2025:47619672.77, crec:"252.9%", tasa:0.700, bajo:76953391.20, bVar:29333718.43, bPct:0.616, medio:80953443.71, mVar:33333770.94, mPct:0.700, alto:89524984.81, aVar:41905312.04, aPct:0.880, alerta:"Crecimiento atípico — expansión de canal"},
+  {cat:"HV ELECTRONICA", metodo:"Año contra Año", f2024:29851952.34, f2025:44169417.77, crec:"47.9%", tasa:0.2878, bajo:55354752.90, bVar:11185335.13, bPct:0.253, medio:56880025.87, mVar:12710608.10, mPct:0.288, alto:64830521.07, aVar:20661103.30, aPct:0.468, alerta:""},
+  {cat:"HOGAR MUEBLES Y JARDIN", metodo:"Año contra Año", f2024:14963439.58, f2025:31691618.47, crec:"111.8%", tasa:0.6708, bajo:50398249.11, bVar:18706630.64, bPct:0.590, medio:52949153.29, mVar:21257534.82, mPct:0.671, alto:58653644.61, aVar:26962026.14, aPct:0.851, alerta:""},
+  {cat:"MEDICAL STORE", metodo:"Año contra Año", f2024:7813254.94, f2025:10998755.83, crec:"40.8%", tasa:0.2446, bajo:13366436.99, bVar:2367681.16, bPct:0.215, medio:13689302.61, mVar:2690546.78, mPct:0.245, alto:15669078.66, aVar:4670322.83, aPct:0.425, alerta:""},
+  {cat:"ELECTRODOMESTICOS", metodo:"En proceso de crecimiento", f2024:107717.25, f2025:9600667.52, crec:"8812.8%", tasa:0.200, bajo:11290385.00, bVar:1689717.48, bPct:0.176, medio:11520801.02, mVar:1920133.50, mPct:0.200, alto:13248921.18, aVar:3648253.66, aPct:0.380, alerta:"Crecimiento atípico — expansión de canal"},
+  {cat:"PAPELERIA Y OFICINA", metodo:"Año contra Año", f2024:1948388.72, f2025:4336038.83, crec:"122.5%", tasa:0.700, bajo:7007038.75, bVar:2670999.92, bPct:0.616, medio:7371266.01, mVar:3035227.18, mPct:0.700, alto:8151753.00, aVar:3815714.17, aPct:0.880, alerta:""},
+  {cat:"ADIR", metodo:"Año contra Año", f2024:3576521.70, f2025:5270586.14, crec:"47.4%", tasa:0.2842, bajo:6588727.24, bVar:1318141.10, bPct:0.250, medio:6768473.75, mVar:1497887.61, mPct:0.284, alto:7717179.25, aVar:2446593.11, aPct:0.464, alerta:""},
+  {cat:"HERRAMIENTAS", metodo:"Año contra Año", f2024:1214607.95, f2025:3972490.19, crec:"227.1%", tasa:0.700, bajo:6419544.15, bVar:2447053.96, bPct:0.616, medio:6753233.32, mVar:2780743.13, mPct:0.700, alto:7468281.56, aVar:3495791.37, aPct:0.880, alerta:""},
+  {cat:"DEPORTES Y FITNESS", metodo:"En proceso de crecimiento", f2024:336378.13, f2025:5565881.75, crec:"1554.6%", tasa:0.200, bajo:6545476.94, bVar:979595.19, bPct:0.176, medio:6679058.10, mVar:1113176.35, mPct:0.200, alto:7680916.81, aVar:2115035.06, aPct:0.380, alerta:"Crecimiento atípico — expansión de canal"},
+  {cat:"FONTASTIC", metodo:"Nueva en año anterior", f2024:0, f2025:4936097.15, crec:"N/A", tasa:0.300, bajo:6239226.80, bVar:1303129.65, bPct:0.264, medio:6416926.30, mVar:1480829.15, mPct:0.300, alto:7305423.78, aVar:2369326.63, aPct:0.480, alerta:"Cat nueva 2025 — solo 1 año de datos"},
+  {cat:"BELLEZA Y CUIDADO PERSONAL", metodo:"Año contra Año", f2024:433811.62, f2025:3453766.85, crec:"696.1%", tasa:0.700, bajo:5581287.23, bVar:2127520.38, bPct:0.616, medio:5871403.64, mVar:2417636.79, mPct:0.700, alto:6493081.68, aVar:3039314.83, aPct:0.880, alerta:"Crecimiento atípico — expansión de canal"},
+  {cat:"SALUD Y EQUIPAMIENTO MEDICO", metodo:"Año contra Año", f2024:1939684.03, f2025:2217832.64, crec:"14.3%", tasa:0.0860, bajo:2385755.03, bVar:167922.39, bPct:0.076, medio:2408653.53, mVar:190820.89, mPct:0.086, alto:2807863.41, aVar:590030.77, aPct:0.266, alerta:""},
+  {cat:"BEBES", metodo:"Año contra Año", f2024:966385.28, f2025:1609477.87, crec:"66.5%", tasa:0.3993, bajo:2174990.27, bVar:565512.40, bPct:0.351, medio:2252105.60, mVar:642627.73, mPct:0.399, alto:2541811.61, aVar:932333.74, aPct:0.579, alerta:""},
+  {cat:"JUGUETES", metodo:"En proceso de crecimiento", f2024:25299.05, f2025:981692.52, crec:"3780.4%", tasa:0.200, bajo:1154470.40, bVar:172777.88, bPct:0.176, medio:1178031.02, mVar:196338.50, mPct:0.200, alto:1354735.68, aVar:373043.16, aPct:0.380, alerta:"Crecimiento atípico — expansión de canal"},
+  {cat:"BH CRISTALERIA", metodo:"Nueva en año anterior", f2024:0, f2025:762198.42, crec:"N/A", tasa:0.300, bajo:963418.80, bVar:201220.38, bPct:0.264, medio:990857.95, mVar:228659.53, mPct:0.300, alto:1128053.66, aVar:365855.24, aPct:0.480, alerta:"Cat nueva 2025 — solo 1 año de datos"},
+  {cat:"ANIMALES Y MASCOTAS", metodo:"Año contra Año", f2024:161546.00, f2025:471536.44, crec:"191.9%", tasa:0.700, bajo:762002.89, bVar:290466.45, bPct:0.616, medio:801611.95, mVar:330075.51, mPct:0.700, alto:886488.51, aVar:414952.07, aPct:0.880, alerta:""},
+  {cat:"CUIDADO Y BELLEZA PERSONAL", metodo:"Nueva en año anterior", f2024:0, f2025:189580.00, crec:"N/A", tasa:0.300, bajo:239629.12, bVar:50049.12, bPct:0.264, medio:246454.00, mVar:56874.00, mPct:0.300, alto:280578.40, aVar:90998.40, aPct:0.480, alerta:"Cat nueva 2025 — solo 1 año de datos"},
+  {cat:"HV ELECTRONICA AUDIO Y VIDEO", metodo:"Nueva en año anterior", f2024:0, f2025:113428.99, crec:"N/A", tasa:0.300, bajo:143374.24, bVar:29945.25, bPct:0.264, medio:147457.69, mVar:34028.70, mPct:0.300, alto:167874.91, aVar:54445.92, aPct:0.480, alerta:"Cat nueva 2025 — solo 1 año de datos"},
+  {cat:"ROPA BOLSO Y CALZADOS", metodo:"Descontinuación", f2024:359319.88, f2025:69524.82, crec:"-80.7%", tasa:-0.150, bajo:57844.65, bVar:-11680.17, bPct:-0.168, medio:59096.10, mVar:-10428.72, mPct:-0.150, alto:71610.56, aVar:2085.74, aPct:0.030, alerta:"Caída severa — evaluar descontinuación"},
+  {cat:"HV COSMETICA", metodo:"Nueva en año anterior", f2024:0, f2025:4857.55, crec:"N/A", tasa:0.300, bajo:6139.94, bVar:1282.39, bPct:0.264, medio:6314.82, mVar:1457.27, mPct:0.300, alto:7189.17, aVar:2331.62, aPct:0.480, alerta:"Cat nueva 2025 — solo 1 año de datos"},
+  {cat:"TOTAL GENERAL", metodo:"", f2024:74212706.44, f2025:178035122.52, crec:"139.9%", tasa:null, bajo:253632141.64, bVar:75597019.12, bPct:0.425, medio:263943670.26, mVar:85908547.74, mPct:0.483, alto:295989992.32, aVar:117954869.80, aPct:0.663, alerta:""}
+];
+
+// =================== UTILS ===================
+const fmt = (n) => {
+  if (n === 0 || n == null) return '$0';
+  if (Math.abs(n) >= 1e6) return '$' + (n/1e6).toFixed(2) + 'M';
+  if (Math.abs(n) >= 1e3) return '$' + (n/1e3).toFixed(1) + 'K';
+  return '$' + n.toFixed(0);
+};
+const fmtPct = (n) => (n >= 0 ? '+' : '') + (n * 100).toFixed(1) + '%';
+const fmtFull = (n) => n == null ? '-' : '$' + n.toLocaleString('es-MX', {minimumFractionDigits:0, maximumFractionDigits:0});
+
+function histClass(h) {
+  if (!h) return 'otro';
+  const hl = h.toLowerCase();
+  if (hl.includes('continua')) return 'continua';
+  if (hl.includes('nueva')) return 'nueva';
+  if (hl.includes('migraci')) return 'migracion';
+  return 'otro';
+}
+function histLabel(h) {
+  if (!h) return '—';
+  const hl = h.toLowerCase();
+  if (hl.includes('continua')) return '✓ Continua';
+  if (hl.includes('nueva')) return '✦ Nueva 2025';
+  if (hl.includes('migraci')) return '⇄ Migración';
+  return h.substring(0, 20);
+}
+
+// =================== STATE ===================
+let filtered = [...DATA.detail];
+let page = 1;
+const pageSize = 15;
+
+// =================== FILTERS ===================
+function populateCategoryFilter() {
+  const cats = [...new Set(DATA.detail.map(d => d.category))].sort();
+  const sel = document.getElementById('f-category');
+  cats.forEach(c => {
+    const o = document.createElement('option');
+    o.value = c; o.textContent = c;
+    sel.appendChild(o);
+  });
+}
+
+function applyFilters() {
+  const plat = document.getElementById('f-platform').value;
+  const store = document.getElementById('f-store').value;
+  const cat = document.getElementById('f-category').value;
+  filtered = DATA.detail.filter(d =>
+    (!plat || d.platform === plat) &&
+    (!store || d.store === store) &&
+    (!cat || d.category === cat)
+  );
+  page = 1;
+  renderKPIs();
+  renderTable();
+}
+
+function resetFilters() {
+  document.getElementById('f-platform').value = '';
+  document.getElementById('f-store').value = '';
+  document.getElementById('f-category').value = '';
+  applyFilters();
+}
+
+// =================== KPIs ===================
+function renderKPIs() {
+  const total25 = filtered.reduce((s, d) => s + d.fact2025, 0);
+  const totalBajo = filtered.reduce((s, d) => s + d.bajo_proj, 0);
+  const totalMedio = filtered.reduce((s, d) => s + d.medio_proj, 0);
+  const totalAlto = filtered.reduce((s, d) => s + d.alto_proj, 0);
+  const growthBajo = total25 ? (totalBajo - total25) / total25 : 0;
+  const growthMedio = total25 ? (totalMedio - total25) / total25 : 0;
+  const growthAlto = total25 ? (totalAlto - total25) / total25 : 0;
+  const totalRecords = filtered.length;
+
+  document.getElementById('count-display').textContent = totalRecords;
+
+  document.getElementById('kpi-container').innerHTML = `
+    <div class="kpi-card neutral">
+      <div class="kpi-label">Facturación Base 2025</div>
+      <div class="kpi-value" style="color:var(--text)">${fmt(total25)}</div>
+      <div class="kpi-sub">${totalRecords} registros filtrados</div>
+    </div>
+    <div class="kpi-card bajo">
+      <div class="kpi-label">⬇ Proyección Baja</div>
+      <div class="kpi-value">${fmt(totalBajo)}</div>
+      <div class="kpi-sub">vs 2025 <span class="kpi-badge up">${fmtPct(growthBajo)}</span></div>
+    </div>
+    <div class="kpi-card medio">
+      <div class="kpi-label">◆ Proyección Media</div>
+      <div class="kpi-value">${fmt(totalMedio)}</div>
+      <div class="kpi-sub">vs 2025 <span class="kpi-badge up">${fmtPct(growthMedio)}</span></div>
+    </div>
+    <div class="kpi-card alto">
+      <div class="kpi-label">⬆ Proyección Alta</div>
+      <div class="kpi-value">${fmt(totalAlto)}</div>
+      <div class="kpi-sub">vs 2025 <span class="kpi-badge up">${fmtPct(growthAlto)}</span></div>
+    </div>
+    <div class="kpi-card dark">
+      <div class="kpi-label">Upside Potencial</div>
+      <div class="kpi-value" style="color:var(--alto)">${fmt(totalAlto - totalBajo)}</div>
+      <div class="kpi-sub">diferencia Alto vs Bajo</div>
+    </div>
+  `;
+}
+
+// =================== TABLE ===================
+function renderTable() {
+  const start = (page - 1) * pageSize;
+  const pageData = filtered.slice(start, start + pageSize);
+  const total = filtered.length;
+
+  const tbody = document.getElementById('table-body');
+
+  if (pageData.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="14"><div class="empty-state"><div class="icon">🔍</div><p>No se encontraron registros con los filtros aplicados.</p></div></td></tr>`;
+  } else {
+    tbody.innerHTML = pageData.map(d => {
+      const hc = histClass(d.historico);
+      const bPct = d.bajo_var_pct < 0 ? 'neg' : 'pos';
+      const mPct = d.medio_var_pct < 0 ? 'neg' : 'pos';
+      const aPct = d.alto_var_pct < 0 ? 'neg' : d.alto_var_pct > 0.7 ? 'warn' : 'pos';
+      const barMax = Math.max(d.bajo_proj, d.medio_proj, d.alto_proj, 1);
+      const bW = Math.round(d.bajo_proj / barMax * 60);
+      const mW = Math.round(d.medio_proj / barMax * 60);
+      const aW = Math.round(d.alto_proj / barMax * 60);
+      return `<tr>
+        <td><span class="td-platform ${d.platform}">${d.platform}</span></td>
+        <td>${d.store}</td>
+        <td style="max-width:180px">${d.category}</td>
+        <td class="td-money">${fmtFull(d.fact2024)}</td>
+        <td class="td-money">${fmtFull(d.fact2025)}</td>
+        <td>${(d.participacion * 100).toFixed(1)}%</td>
+        <td><span class="td-hist ${hc}">${histLabel(d.historico)}</span></td>
+        <td class="td-money" style="color:var(--bajo)">${fmtFull(d.bajo_proj)}</td>
+        <td class="td-pct ${bPct}">${fmtPct(d.bajo_var_pct)}</td>
+        <td class="td-money" style="color:var(--medio)">${fmtFull(d.medio_proj)}</td>
+        <td class="td-pct ${mPct}">${fmtPct(d.medio_var_pct)}</td>
+        <td class="td-money" style="color:var(--alto)">${fmtFull(d.alto_proj)}</td>
+        <td class="td-pct ${aPct}">${fmtPct(d.alto_var_pct)}</td>
+        <td>
+          <div class="scenario-bar">
+            <div class="s-bar" style="width:${bW}px;background:var(--bajo);opacity:0.7"></div>
+            <div class="s-bar" style="width:${mW}px;background:var(--medio);opacity:0.7"></div>
+            <div class="s-bar" style="width:${aW}px;background:var(--alto);opacity:0.7"></div>
+          </div>
+        </td>
+      </tr>`;
+    }).join('');
+  }
+
+  // Pagination
+  const totalPages = Math.ceil(total / pageSize);
+  document.getElementById('page-info').textContent = `Pág. ${page} de ${totalPages} (${total} registros)`;
+  const btns = document.getElementById('page-btns');
+  let html = `<button class="page-btn" onclick="goPage(${page-1})" ${page===1?'disabled':''}>‹ Ant</button>`;
+  const startP = Math.max(1, page-2), endP = Math.min(totalPages, page+2);
+  for (let p = startP; p <= endP; p++) {
+    html += `<button class="page-btn ${p===page?'current':''}" onclick="goPage(${p})">${p}</button>`;
+  }
+  html += `<button class="page-btn" onclick="goPage(${page+1})" ${page===totalPages?'disabled':''}>Sig ›</button>`;
+  btns.innerHTML = html;
+}
+
+function goPage(p) {
+  const totalPages = Math.ceil(filtered.length / pageSize);
+  if (p < 1 || p > totalPages) return;
+  page = p;
+  renderTable();
+}
+
+// =================== RESUMEN ===================
+function renderResumen() {
+  // Platforms
+  const platColors = { ML: '#60a5fa', AMZ: '#f5a623', WM: '#4ade80', LIV: '#e879f9' };
+  const platNames = { ML: 'Mercado Libre', AMZ: 'Amazon', WM: 'Walmart', LIV: 'Liverpool' };
+  const grid = document.getElementById('plat-grid');
+  grid.innerHTML = Object.entries(DATA.plataformas).map(([k, v]) => {
+    const g_bajo = v.rev2025 ? (v.bajo - v.rev2025) / v.rev2025 : 0;
+    const g_medio = v.rev2025 ? (v.medio - v.rev2025) / v.rev2025 : 0;
+    const g_alto = v.rev2025 ? (v.alto - v.rev2025) / v.rev2025 : 0;
+    return `<div class="plat-card">
+      <div class="plat-name" style="color:${platColors[k]}">${k}</div>
+      <div class="plat-label">${platNames[k]} · Base 2025: ${fmt(v.rev2025)}</div>
+      <div class="plat-scenarios">
+        <div class="plat-row">
+          <div class="plat-dot" style="background:var(--bajo)"></div>
+          <div class="plat-scenario-name">Escenario Bajo</div>
+          <div class="plat-val" style="color:var(--bajo)">${fmt(v.bajo)}</div>
+          <div class="plat-growth" style="color:var(--bajo)">${fmtPct(g_bajo)}</div>
+        </div>
+        <div class="plat-row">
+          <div class="plat-dot" style="background:var(--medio)"></div>
+          <div class="plat-scenario-name">Escenario Medio</div>
+          <div class="plat-val" style="color:var(--medio)">${fmt(v.medio)}</div>
+          <div class="plat-growth" style="color:var(--medio)">${fmtPct(g_medio)}</div>
+        </div>
+        <div class="plat-row">
+          <div class="plat-dot" style="background:var(--alto)"></div>
+          <div class="plat-scenario-name">Escenario Alto</div>
+          <div class="plat-val" style="color:var(--alto)">${fmt(v.alto)}</div>
+          <div class="plat-growth" style="color:var(--alto)">${fmtPct(g_alto)}</div>
+        </div>
+      </div>
+      <div class="plat-bg-text">${k}</div>
+    </div>`;
+  }).join('');
+
+  // ====== TIENDAS — BUG FIX ======
+  // Each bar is drawn independently relative to maxTiendaMedio (the largest store's medio value).
+  // Previously the orange (medio) bar was drawn as (medio - bajo) which for small stores
+  // like Tlab, Medical, Fontastic was nearly invisible against the large Nexu/Select values.
+  // Now each of the three scenario bars is drawn as a standalone bar at its own % of max.
+  const maxTiendaMedio = Math.max(...Object.values(DATA.tiendas).map(t => t.medio));
+  document.getElementById('tienda-rows').innerHTML = Object.entries(DATA.tiendas)
+    .sort((a,b) => b[1].medio - a[1].medio)
+    .map(([k, v]) => {
+      const g = v.rev2025 ? (v.medio - v.rev2025) / v.rev2025 : 0;
+      // Each bar is its own % relative to the maximum tienda medio value
+      const pctBajo  = Math.max(1, Math.round(v.bajo  / maxTiendaMedio * 100));
+      const pctMedio = Math.max(1, Math.round(v.medio / maxTiendaMedio * 100));
+      const pctAlto  = Math.max(1, Math.round(v.alto  / maxTiendaMedio * 100));
+      return `<div class="tienda-row">
+        <div class="tienda-header">
+          <div class="tienda-name">${k}</div>
+          <div style="font-size:11px; color:var(--muted)">Base: ${fmt(v.rev2025)} · <span style="color:var(--medio); font-weight:600">${fmtPct(g)}</span></div>
+        </div>
+        <div class="tribar-group">
+          <div class="tribar-track"><div class="tribar-fill" style="width:${pctBajo}%; background:var(--bajo); opacity:0.8"></div></div>
+          <div class="tribar-track"><div class="tribar-fill" style="width:${pctMedio}%; background:var(--medio); opacity:0.9"></div></div>
+          <div class="tribar-track"><div class="tribar-fill" style="width:${pctAlto}%; background:var(--alto); opacity:0.8"></div></div>
+        </div>
+        <div style="display:flex; gap:14px; font-size:11px; margin-top:3px; color:var(--muted)">
+          <span style="color:var(--bajo)">⬇ ${fmt(v.bajo)}</span>
+          <span style="color:var(--medio)">◆ ${fmt(v.medio)}</span>
+          <span style="color:var(--alto)">⬆ ${fmt(v.alto)}</span>
+        </div>
+      </div>`;
+    }).join('');
+
+  // Category chart (top 10 by medio)
+  const catAgg = {};
+  DATA.detail.forEach(d => {
+    if (!catAgg[d.category]) catAgg[d.category] = { medio: 0, bajo: 0, alto: 0 };
+    catAgg[d.category].medio += d.medio_proj;
+    catAgg[d.category].bajo += d.bajo_proj;
+    catAgg[d.category].alto += d.alto_proj;
+  });
+  const topCats = Object.entries(catAgg).sort((a,b) => b[1].medio - a[1].medio).slice(0, 10);
+  const maxCat = topCats[0][1].medio;
+  document.getElementById('cat-chart').innerHTML = topCats.map(([cat, v]) => {
+    const pct = Math.round(v.medio / maxCat * 100);
+    return `<div class="bar-row">
+      <div class="bar-label-row">
+        <div class="bar-label">${cat}</div>
+        <div class="bar-value">${fmt(v.medio)}</div>
+      </div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:${pct}%; background: linear-gradient(90deg, var(--bajo), var(--medio))"></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// =================== PROYECCIÓN POR CATEGORÍA ===================
+function renderProyeccion() {
+  // KPIs sumados (excluir fila TOTAL GENERAL del cálculo)
+  const rows = PROY_CAT.filter(r => r.cat !== 'TOTAL GENERAL');
+  const total = PROY_CAT.find(r => r.cat === 'TOTAL GENERAL');
+
+  document.getElementById('proy-kpis').innerHTML = `
+    <div class="proy-kpi k-total">
+      <div class="proy-kpi-lbl">Facturación Base 2025</div>
+      <div class="proy-kpi-val">${fmt(total.f2025)}</div>
+      <div class="proy-kpi-sub">${rows.length} categorías activas</div>
+    </div>
+    <div class="proy-kpi k-bajo">
+      <div class="proy-kpi-lbl">⬇ Total Escenario Bajo</div>
+      <div class="proy-kpi-val">${fmt(total.bajo)}</div>
+      <div class="proy-kpi-sub">Var: ${fmtPct(total.bPct)}</div>
+    </div>
+    <div class="proy-kpi k-medio">
+      <div class="proy-kpi-lbl">◆ Total Escenario Medio</div>
+      <div class="proy-kpi-val">${fmt(total.medio)}</div>
+      <div class="proy-kpi-sub">Var: ${fmtPct(total.mPct)}</div>
+    </div>
+    <div class="proy-kpi k-alto">
+      <div class="proy-kpi-lbl">⬆ Total Escenario Alto</div>
+      <div class="proy-kpi-val">${fmt(total.alto)}</div>
+      <div class="proy-kpi-sub">Var: ${fmtPct(total.aPct)}</div>
+    </div>
+  `;
+
+  // Method badge helper
+  function metodoBadge(m) {
+    if (!m) return '';
+    const ml = m.toLowerCase();
+    if (ml.includes('año contra año')) return `<span class="proy-method-badge method-yoy">Año/Año</span>`;
+    if (ml.includes('proceso')) return `<span class="proy-method-badge method-growth">Crecimiento</span>`;
+    if (ml.includes('nueva')) return `<span class="proy-method-badge method-nueva">Nueva</span>`;
+    if (ml.includes('descont')) return `<span class="proy-method-badge method-desc">Descont.</span>`;
+    return `<span class="proy-method-badge method-otra">${m.substring(0,12)}</span>`;
+  }
+
+  // Visual mini bar
+  const maxMedio = Math.max(...rows.map(r => r.medio));
+  function miniBar(r) {
+    if (r.cat === 'TOTAL GENERAL') return '';
+    const h = 20;
+    const bH = Math.max(3, Math.round(r.bajo  / maxMedio * h));
+    const mH = Math.max(3, Math.round(r.medio / maxMedio * h));
+    const aH = Math.max(3, Math.round(r.alto  / maxMedio * h));
+    return `<div class="proy-bar-trio">
+      <div class="proy-bar-seg" style="width:9px;height:${bH}px;background:var(--bajo);opacity:0.8"></div>
+      <div class="proy-bar-seg" style="width:9px;height:${mH}px;background:var(--medio);opacity:0.9"></div>
+      <div class="proy-bar-seg" style="width:9px;height:${aH}px;background:var(--alto);opacity:0.8"></div>
+    </div>`;
+  }
+
+  const allRows = [...rows, total];
+  document.getElementById('proy-tbody').innerHTML = allRows.map(r => {
+    const isTotal = r.cat === 'TOTAL GENERAL';
+    const bPctClass = r.bPct < 0 ? 'td-pct neg' : 'td-pct pos';
+    const mPctClass = r.mPct < 0 ? 'td-pct neg' : 'td-pct pos';
+    const aPctClass = r.aPct < 0 ? 'td-pct neg' : r.aPct > 0.6 ? 'td-pct warn' : 'td-pct pos';
+    const bVarClass = r.bVar < 0 ? 'td-pct neg' : 'td-pct pos';
+    const mVarClass = r.mVar < 0 ? 'td-pct neg' : 'td-pct pos';
+    const aVarClass = r.aVar < 0 ? 'td-pct neg' : 'td-pct pos';
+    return `<tr${isTotal ? ' class="total-row"' : ''}>
+      <td style="font-weight:${isTotal?700:500}">${r.cat}</td>
+      <td>${isTotal ? '' : metodoBadge(r.metodo)}</td>
+      <td class="td-money">${r.f2024 > 0 ? fmtFull(r.f2024) : (r.crec === 'N/A' ? '—' : fmtFull(r.f2024))}</td>
+      <td class="td-money">${fmtFull(r.f2025)}</td>
+      <td style="font-size:11px; color:${r.crec && r.crec.startsWith('-') ? 'var(--accent2)' : 'var(--muted)'}">${r.crec || '—'}</td>
+      <td style="text-align:center">${isTotal ? '<span style="color:var(--muted);font-size:11px">—</span>' : (() => { if (r.tasa === null || r.tasa === undefined) return '<span style="color:var(--muted);font-size:11px">—</span>'; const pct = r.tasa * 100; const label = (pct >= 0 ? '+' : '') + pct.toFixed(1) + '%'; const cls = r.tasa < 0 ? 'tasa-badge tasa-neg' : r.tasa >= 0.699 ? 'tasa-badge tasa-cap' : 'tasa-badge tasa-pos'; return '<span class="' + cls + '">' + label + '</span>'; })()}</td>
+      <td class="td-money" style="color:var(--bajo)">${fmtFull(r.bajo)}</td>
+      <td class="${bVarClass}">${r.bVar >= 0 ? '+' : ''}${fmtFull(Math.abs(r.bVar)).replace('$','') + (r.bVar < 0 ? ' ↓' : ' ↑')}</td>
+      <td class="${bPctClass}">${fmtPct(r.bPct)}</td>
+      <td class="td-money" style="color:var(--medio)">${fmtFull(r.medio)}</td>
+      <td class="${mVarClass}">${r.mVar >= 0 ? '+' : ''}${fmtFull(Math.abs(r.mVar)).replace('$','') + (r.mVar < 0 ? ' ↓' : ' ↑')}</td>
+      <td class="${mPctClass}">${fmtPct(r.mPct)}</td>
+      <td class="td-money" style="color:var(--alto)">${fmtFull(r.alto)}</td>
+      <td class="${aVarClass}">${r.aVar >= 0 ? '+' : ''}${fmtFull(Math.abs(r.aVar)).replace('$','') + (r.aVar < 0 ? ' ↓' : ' ↑')}</td>
+      <td class="${aPctClass}">${fmtPct(r.aPct)}</td>
+      <td>${miniBar(r)}</td>
+      <td>${r.alerta ? `<span class="alerta-badge">${r.alerta}</span>` : '<span style="color:var(--muted);font-size:11px">—</span>'}</td>
+    </tr>`;
+  }).join('');
+}
+
+// =================== TABS ===================
+function switchTab(tab) {
+  // Tabs order: resumen, detalle, proyeccion
+  const tabs = ['resumen','detalle','proyeccion'];
+  document.querySelectorAll('.tab-btn').forEach((b, i) => {
+    b.classList.toggle('active', tabs[i] === tab);
+  });
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+
+// =================== INIT ===================
+populateCategoryFilter();
+renderKPIs();
+renderTable();
+renderResumen();
+renderProyeccion();
+</script>
+</body>
+</html>
